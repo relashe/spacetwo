@@ -1,11 +1,10 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import "./index.css";
 import { AuthProvider } from "./providers";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,9 +15,7 @@ root.render(
       clientId={`${process.env.REACT_APP_GOOGLEOAUTH_CLIENTID}`}
     >
       <AuthProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <App />
       </AuthProvider>
     </GoogleOAuthProvider>
   </React.StrictMode>
