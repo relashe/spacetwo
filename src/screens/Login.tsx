@@ -3,7 +3,7 @@ import LoginActions from "../components/LoginActions/LoginActions";
 import { Link } from "react-router";
 import { APP_ROUTES } from "../routing";
 
-const Login: React.FC<{}> = ({}) => {
+const Login: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">

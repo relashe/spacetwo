@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { useAuthContext } from "../providers";
 import { APP_ROUTES } from "../routing";
 
-const Home: React.FC<{}> = ({}) => {
+const Home: React.FC = () => {
   /* hooks */
   const { token, user } = useAuthContext();
 

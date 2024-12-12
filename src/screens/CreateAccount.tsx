@@ -14,7 +14,7 @@ import { useAuthContext } from "../providers";
 import { SpaceTwoNewUser, UserTypes } from "../types";
 import { APP_ROUTES } from "../routing";
 
-const CreateAccount: React.FC<{}> = ({}) => {
+const CreateAccount: React.FC = () => {
   const { setUser } = useAuthContext();
   const { createNewSpaceTwoUser } = useSpaceTwoUsers();
   const navigate = useNavigate();
@@ -38,20 +38,20 @@ const CreateAccount: React.FC<{}> = ({}) => {
   const handleInputRef = useRef<HTMLInputElement>();
 
   /* events */
-  const handleUpdateNewUser = useCallback((newDetails: any) => {
+  const handleUpdateNewUser = (newDetails: any) => {
     setNewUser((currentNewUser) => ({
       ...currentNewUser,
       ...newDetails,
     }));
-  }, []);
+  };
 
-  const handleSelectIndividualType = useCallback(() => {
+  const handleSelectIndividualType = () => {
     handleUpdateNewUser({ type: UserTypes.INDIVIDUAL });
-  }, []);
+  };
 
-  const handleSelectBrandType = useCallback(() => {
+  const handleSelectBrandType = () => {
     handleUpdateNewUser({ type: UserTypes.INDIVIDUAL });
-  }, []);
+  };
 
   const handleUpdateHandle = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -64,7 +64,7 @@ const CreateAccount: React.FC<{}> = ({}) => {
 
     setUser(user);
     navigate(`${APP_ROUTES.DASHBOARD}/${user.handle}`);
-  }, [newUser]);
+  }, [newUser, createNewSpaceTwoUser, setUser, navigate]);
 
   return (
     <Container maxWidth="md">

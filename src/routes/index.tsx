@@ -1,14 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { useAuthContext } from "../providers";
-import Home from "../screens/Home";
-import Login from "../screens/Login";
-import { ProtectedRoute } from "./ProtectedRoute";
 import { APP_ROUTES } from "../routing";
 import CreateAccount from "../screens/CreateAccount";
 import Dashboard from "../screens/Dashboard";
+import Home from "../screens/Home";
+import Login from "../screens/Login";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 const AppRoutes = () => {
-  const { token } = useAuthContext();
+  // const { token } = useAuthContext();
 
   // Define public routes accessible to all users
   const routesForPublic = [

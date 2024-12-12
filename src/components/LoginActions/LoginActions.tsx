@@ -2,7 +2,7 @@ import { Stack, TextField } from "@mui/material";
 import { useRef } from "react";
 import GoogleSignUp from "./GoogleSignUp";
 
-const LoginActions: React.FC<{}> = ({}) => {
+const LoginActions: React.FC = () => {
   /* hooks */
   const emailLoginRef = useRef();
 

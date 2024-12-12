@@ -8,7 +8,7 @@ import { API_ENDPOINTS } from "../../constants";
 import { Button } from "@mui/material";
 import { GoogleProfile } from "../../types/google.types";
 
-const GoogleSignUp: React.FC<{}> = ({}) => {
+const GoogleSignUp: React.FC = () => {
   /* hooks */
   const { setToken, setUser } = useAuthContext();
   const navigate = useNavigate();
