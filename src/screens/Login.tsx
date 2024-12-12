@@ -1,27 +1,20 @@
-import { useNavigate } from "react-router";
+import { Container, Typography } from "@mui/material";
 import LoginActions from "../components/LoginActions/LoginActions";
-import { useAuthContext } from "../providers";
+import { Link } from "react-router";
 import { APP_ROUTES } from "../routing";
-import { useEffect } from "react";
 
 const Login: React.FC<{}> = ({}) => {
-  /* hooks */
-  const { token } = useAuthContext();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token) {
-      navigate(APP_ROUTES.HOME);
-    }
-  }, [token]);
-
   return (
     <div className="App">
       <header className="App-header">
-        <p>SpaceTwo</p>
+        <Typography variant="h1">
+          <Link to={APP_ROUTES.HOME}>SpaceTwo</Link>
+        </Typography>
       </header>
       <main>
-        <LoginActions />
+        <Container maxWidth="sm">
+          <LoginActions />
+        </Container>
       </main>
     </div>
   );

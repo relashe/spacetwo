@@ -37,7 +37,7 @@ const GoogleSignUp: React.FC<{}> = ({}) => {
           );
         } else {
           setUser(spaceTwoUser);
-          navigate(APP_ROUTES.HOME);
+          navigate(`${APP_ROUTES.DASHBOARD}/${spaceTwoUser.handle}`);
         }
       }
 
@@ -54,8 +54,11 @@ const GoogleSignUp: React.FC<{}> = ({}) => {
         onClick={() => {
           handleGoogleLogin();
         }}
+        fullWidth
+        variant="contained"
+        size="large"
       >
-        Log In
+        Log In with Google
       </Button>
     </>
   );

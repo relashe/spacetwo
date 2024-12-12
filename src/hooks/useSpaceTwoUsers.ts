@@ -19,7 +19,7 @@ const useSpaceTwoUsers = () => {
   };
 
   const createNewSpaceTwoUser = useCallback(
-    async (newUser: SpaceTwoNewUser) => {
+    async (newUser: SpaceTwoNewUser): Promise<SpaceTwoBaseUser> => {
       try {
         let newUserId;
         // Add the new friend!
@@ -39,6 +39,11 @@ const useSpaceTwoUsers = () => {
             }
           );
         }
+
+        return Promise.resolve({
+          id: newUserId as number,
+          ...newUser,
+        });
       } catch (e: unknown) {
         throw new Error("error at createNewSpaceTwoUSer");
       }

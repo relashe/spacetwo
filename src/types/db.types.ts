@@ -3,7 +3,11 @@ import { IDateTimespan } from "./date.types";
 
 export type IDbId = number;
 
-export type SpaceTwoUserTypes = "individual" | "brand";
+export enum UserTypes {
+  INDIVIDUAL = "individual",
+  BRAND = "brand",
+}
+export type SpaceTwoUserTypes = UserTypes.BRAND | UserTypes.INDIVIDUAL;
 
 export enum SpaceTwoDbTables {
   INDIVIDUALS = "individuals",
@@ -17,6 +21,7 @@ export interface SpaceTwoBaseUser {
   handle?: string;
   name: string;
   type?: SpaceTwoUserTypes;
+  telephone?: string;
   dateCreated?: IDateTimespan;
 }
 

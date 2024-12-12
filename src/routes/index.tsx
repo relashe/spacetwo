@@ -5,6 +5,7 @@ import Login from "../screens/Login";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { APP_ROUTES } from "../routing";
 import CreateAccount from "../screens/CreateAccount";
+import Dashboard from "../screens/Dashboard";
 
 const AppRoutes = () => {
   const { token } = useAuthContext();
@@ -12,7 +13,12 @@ const AppRoutes = () => {
   // Define public routes accessible to all users
   const routesForPublic = [
     {
-      path: "/login",
+      path: APP_ROUTES.HOME,
+      element: <Home />,
+    },
+    {
+      path: APP_ROUTES.LOGIN,
+      exact: true,
       element: <Login />,
     },
   ];
@@ -20,12 +26,12 @@ const AppRoutes = () => {
   // Define routes accessible only to authenticated users
   const routesForAuthenticatedOnly = [
     {
-      path: "/",
+      path: APP_ROUTES.DASHBOARD,
       element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
       children: [
         {
-          path: APP_ROUTES.HOME,
-          element: <Home />,
+          path: APP_ROUTES.USER_DASHBOARD,
+          element: <Dashboard />,
         },
         {
           path: APP_ROUTES.CREATE_ACCOUNT,

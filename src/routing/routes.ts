@@ -1,5 +1,7 @@
 export const APP_ROUTES = {
-  LOGIN: "/login",
-  CREATE_ACCOUNT: `/create-account`,
   HOME: "/",
+  LOGIN: "/login",
+  CREATE_ACCOUNT: `/dashboard/create-account`,
+  DASHBOARD: "/dashboard",
+  USER_DASHBOARD: "/dashboard/:handleId",
 };
