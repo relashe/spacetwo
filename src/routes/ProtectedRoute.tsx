@@ -11,5 +11,14 @@ export const ProtectedRoute = () => {
   }
 
   // If authenticated, render the child routes
-  return <Outlet />;
+  return (
+    <div className="App">
+      <header className="App-header">
+        <p>SpaceTwo</p>
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  );
 };

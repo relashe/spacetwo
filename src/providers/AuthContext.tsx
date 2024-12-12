@@ -7,9 +7,11 @@ import {
   useMemo,
   useState,
 } from "react";
+import { SpaceTwoBaseUser } from "../types";
 
 interface AuthContextProps {
-  user?: any;
+  user?: SpaceTwoBaseUser;
+  setUser: (newUser: SpaceTwoBaseUser) => void;
   token: string | null;
   setToken: (newToken: string) => void;
 }
@@ -19,6 +21,7 @@ const AuthContext = createContext<AuthContextProps | null>(null);
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   /* state */
   const [token, setToken_] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState<SpaceTwoBaseUser | undefined>(undefined);
 
   /* effects */
   useEffect(() => {
@@ -41,8 +44,10 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     () => ({
       token,
       setToken,
+      user,
+      setUser,
     }),
-    [token]
+    [token, user]
   );
 
   return (
