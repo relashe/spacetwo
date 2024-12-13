@@ -1,8 +1,6 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 export class ApiService {
-  constructor() {}
-
   async get<TResponse>(
     endpoint: string,
     accessToken: string
