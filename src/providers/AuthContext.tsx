@@ -2,26 +2,45 @@ import axios from "axios";
 import {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
 } from "react";
 import { SpaceTwoBaseUser } from "../types";
+import { apiService } from "..";
+import { GoogleProfile } from "../types/google.types";
+import { API_ENDPOINTS } from "../constants";
 
 interface AuthContextProps {
   user?: SpaceTwoBaseUser;
   setUser: (newUser: SpaceTwoBaseUser) => void;
   token: string | null;
   setToken: (newToken: string) => void;
+  getUserProfile: () => Promise<GoogleProfile | undefined>;
+  handleLogout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | null>(null);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   /* state */
-  const [token, setToken_] = useState(localStorage.getItem("token"));
+  const [token, setToken_] = useState<string | null>(
+    localStorage.getItem("token")
+  );
   const [user, setUser] = useState<SpaceTwoBaseUser | undefined>(undefined);
+
+  /* callbacks */
+  const getUserProfile = useCallback(async () => {
+    if (!token) return;
+
+    // get Google Info
+    return await apiService.get<GoogleProfile>(
+      API_ENDPOINTS.GOOGLE.GET_USER_INFO(token),
+      token
+    );
+  }, [token]);
 
   /* effects */
   useEffect(() => {
@@ -39,6 +58,10 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setToken_(newToken);
   };
 
+  const handleLogout = () => {
+    setToken_(null);
+  };
+
   /* values */
   const contextValue = useMemo(
     () => ({
@@ -46,6 +69,8 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       setToken,
       user,
       setUser,
+      getUserProfile,
+      handleLogout,
     }),
     [token, user]
   );

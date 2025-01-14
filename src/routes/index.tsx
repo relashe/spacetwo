@@ -1,4 +1,9 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import {
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from "react-router";
 import { APP_ROUTES } from "../routing";
 import CreateAccount from "../screens/CreateAccount";
 import Dashboard from "../screens/Dashboard";
@@ -53,7 +58,19 @@ const AppRoutes = () => {
   ]);
 
   // Provide the router configuration using RouterProvider
-  return <RouterProvider router={router} />;
+  // return <RouterProvider router={router} />;
+
+  return (
+    <Routes>
+      <Route index element={<Home />} />
+      <Route path={APP_ROUTES.LOGIN} element={<Login />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route path={APP_ROUTES.USER_DASHBOARD} element={<Dashboard />} />
+        <Route path={APP_ROUTES.CREATE_ACCOUNT} element={<CreateAccount />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default AppRoutes;

@@ -1,29 +1,24 @@
-import { useGoogleLogin } from "@react-oauth/google";
-import { useAuthContext } from "../../providers";
-import { useNavigate } from "react-router";
-import { APP_ROUTES } from "../../routing";
-import useSpaceTwoUsers from "../../hooks/useSpaceTwoUsers";
-import { apiService } from "../..";
-import { API_ENDPOINTS } from "../../constants";
 import { Button } from "@mui/material";
-import { GoogleProfile } from "../../types/google.types";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router";
+import useSpaceTwoUsers from "../../hooks/useSpaceTwoUsers";
+import { useAuthContext, useLoginContext } from "../../providers";
+import { APP_ROUTES } from "../../routing";
 
 const GoogleSignUp: React.FC = () => {
   /* hooks */
-  const { setToken, setUser } = useAuthContext();
-  const navigate = useNavigate();
+  const { setToken, setUser, getUserProfile } = useAuthContext();
+  const { handleCloseModal } = useLoginContext();
   const { getSpaceTwoUserWithEmail } = useSpaceTwoUsers();
+  const navigate = useNavigate();
 
   /* events */
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (token) => {
       setToken(token.access_token);
+      handleCloseModal();
 
-      // get Google Info
-      const userProfile = await apiService.get<GoogleProfile>(
-        API_ENDPOINTS.GOOGLE.GET_USER_INFO(token.access_token),
-        token.access_token
-      );
+      const userProfile = await getUserProfile();
 
       // check if user exists
       if (!userProfile) {

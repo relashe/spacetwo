@@ -1,15 +1,20 @@
 import { Container } from "@mui/material";
+import { useEffect } from "react";
 import Header from "../components/Header/Header";
-import LoginActions from "../components/LoginActions/LoginActions";
+import { useLoginContext } from "../providers";
 
 const Login: React.FC = () => {
+  const { handleOpenLogin } = useLoginContext();
+
+  useEffect(() => {
+    handleOpenLogin();
+  }, []);
+
   return (
     <div className="App">
       <Header />
       <main>
-        <Container maxWidth="sm">
-          <LoginActions />
-        </Container>
+        <Container maxWidth="sm">{/* <LoginActions /> */}</Container>
       </main>
     </div>
   );

@@ -3,7 +3,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import { AuthProvider } from "./providers";
 import reportWebVitals from "./reportWebVitals";
 import { ApiService } from "./services";
 
@@ -15,9 +14,7 @@ root.render(
     <GoogleOAuthProvider
       clientId={`${process.env.REACT_APP_GOOGLEOAUTH_CLIENTID}`}
     >
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <App />
     </GoogleOAuthProvider>
   </React.StrictMode>
 );
