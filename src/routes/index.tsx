@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { APP_ROUTES } from "../routing";
 import CreateAccount from "../screens/CreateAccount";
 import Dashboard from "../screens/Dashboard";
-import Home from "../screens/Home";
+import Home from "../screens/Home/Home";
 import Login from "../screens/Login";
 import { ProtectedRoute } from "./ProtectedRoute";
 

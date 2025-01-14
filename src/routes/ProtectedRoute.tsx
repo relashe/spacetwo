@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router";
+import Header from "../components/Header/Header";
 import { useAuthContext } from "../providers";
 import { APP_ROUTES } from "../routing";
-import { Typography } from "@mui/material";
 
 export const ProtectedRoute = () => {
   /* hooks */
@@ -16,9 +16,7 @@ export const ProtectedRoute = () => {
   // If authenticated, render the child routes
   return (
     <div className="App">
-      <header className="App-header">
-        <Typography variant="h1">SpaceTwo - Dashboard area</Typography>
-      </header>
+      <Header />
       <main>
         <Outlet />
       </main>
