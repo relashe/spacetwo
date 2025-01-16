@@ -1,4 +1,11 @@
-import { Dialog, DialogContent, Modal } from "@mui/material";
+import {
+  Box,
+  CardMedia,
+  Dialog,
+  DialogContent,
+  Modal,
+  Stack,
+} from "@mui/material";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import LoginActions from "../components/LoginActions/LoginActions";
 
@@ -49,9 +56,49 @@ export const LoginProvider: React.FC<PropsWithChildren> = ({ children }) => {
       }}
     >
       {children}
-      <Dialog open={showModal} onClose={handleCloseModal}>
-        <DialogContent>
-          <LoginActions />
+      <Dialog
+        open={showModal}
+        onClose={handleCloseModal}
+        maxWidth="sm"
+        sx={{
+          "& .MuiPaper-root": {
+            width: "80%",
+            maxWidth: "none",
+          },
+        }}
+      >
+        <DialogContent
+          sx={{
+            padding: 0,
+            height: "85vh",
+          }}
+        >
+          <Stack direction="row" height="100%">
+            <Box
+              sx={{
+                flex: {
+                  xs: "0 0 100%",
+                  md: "0 0 50%",
+                },
+              }}
+            >
+              <LoginActions />
+            </Box>
+            <Box
+              sx={{
+                flex: {
+                  xs: "0 0 100%",
+                  md: "0 0 50%",
+                },
+              }}
+            >
+              <CardMedia
+                sx={{ height: "100%" }}
+                image="https://placehold.co/1000x600"
+                title="Login Media"
+              />
+            </Box>
+          </Stack>
         </DialogContent>
       </Dialog>
     </LoginContext.Provider>

@@ -44,6 +44,5 @@ export const headerStyles: SxProps<Theme> = {
     justifyContent: "space-around",
     gap: "20px",
     padding: "20px 0",
-    boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.05)",
   },
 };
