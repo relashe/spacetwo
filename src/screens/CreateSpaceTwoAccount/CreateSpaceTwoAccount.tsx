@@ -6,16 +6,16 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { useQuery } from "../hooks";
-import useSpaceTwoUsers from "../hooks/useSpaceTwoUsers";
-import { useAuthContext } from "../providers";
-import { SpaceTwoNewUser, UserTypes } from "../types";
-import { APP_ROUTES } from "../routing";
+import { useQuery } from "../../hooks";
+import useSpaceTwoUsers from "../../hooks/useSpaceTwoUsers";
+import { useAuthContext } from "../../providers";
+import { APP_ROUTES } from "../../routing";
+import { SpaceTwoNewUser, UserTypes } from "../../types";
 
-const CreateAccount: React.FC = () => {
-  const { setUser } = useAuthContext();
+const CreateSpaceTwoAccount: React.FC = () => {
+  const { handleLogin } = useAuthContext();
   const { createNewSpaceTwoUser } = useSpaceTwoUsers();
   const navigate = useNavigate();
 
@@ -25,15 +25,6 @@ const CreateAccount: React.FC = () => {
     ...newUserDetails,
     handle: "",
   });
-
-  useEffect(() => {
-    if (newUserDetails) {
-      setNewUser((currentNewUser) => ({
-        ...currentNewUser,
-        ...newUserDetails,
-      }));
-    }
-  }, [newUserDetails]);
 
   const handleInputRef = useRef<HTMLInputElement>();
 
@@ -60,11 +51,16 @@ const CreateAccount: React.FC = () => {
   };
 
   const handleCreateAccount = useCallback(async () => {
+    if (!newUser.handle) {
+      return;
+    }
+
     const user = await createNewSpaceTwoUser(newUser);
 
-    setUser(user);
+    handleLogin(user);
+
     navigate(`${APP_ROUTES.DASHBOARD}/${user.handle}`);
-  }, [newUser, createNewSpaceTwoUser, setUser, navigate]);
+  }, [newUser, createNewSpaceTwoUser, handleLogin, navigate]);
 
   return (
     <Container maxWidth="md">
@@ -101,6 +97,7 @@ const CreateAccount: React.FC = () => {
             label="Pick your handle"
             onChange={handleUpdateHandle}
             inputRef={handleInputRef}
+            required
           />
           <Button onClick={handleCreateAccount}>Create account</Button>
         </Stack>
@@ -133,4 +130,4 @@ const CreateAccount: React.FC = () => {
   );
 };
 
-export default CreateAccount;
+export default CreateSpaceTwoAccount;

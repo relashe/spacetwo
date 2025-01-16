@@ -12,35 +12,47 @@ import { SpaceTwoBaseUser } from "../types";
 import { apiService } from "..";
 import { GoogleProfile } from "../types/google.types";
 import { API_ENDPOINTS } from "../constants";
+import { useNavigate } from "react-router";
+import { APP_ROUTES } from "../routing";
+import useSpaceTwoUsers from "../hooks/useSpaceTwoUsers";
 
 interface AuthContextProps {
   user?: SpaceTwoBaseUser;
-  setUser: (newUser: SpaceTwoBaseUser) => void;
   token: string | null;
   setToken: (newToken: string) => void;
-  getUserProfile: () => Promise<GoogleProfile | undefined>;
+  getUserProfile: (accessToken: string) => Promise<GoogleProfile | undefined>;
+  handleLogin: (newUser: SpaceTwoBaseUser) => void;
   handleLogout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | null>(null);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  /* hooks */
+  const { getSpaceTwoUserWithEmail } = useSpaceTwoUsers();
+
   /* state */
+  const navigate = useNavigate();
   const [token, setToken_] = useState<string | null>(
     localStorage.getItem("token")
   );
   const [user, setUser] = useState<SpaceTwoBaseUser | undefined>(undefined);
 
   /* callbacks */
-  const getUserProfile = useCallback(async () => {
-    if (!token) return;
-
+  const getUserProfile = useCallback(async (accessToken: string) => {
     // get Google Info
     return await apiService.get<GoogleProfile>(
-      API_ENDPOINTS.GOOGLE.GET_USER_INFO(token),
-      token
+      API_ENDPOINTS.GOOGLE.GET_USER_INFO(accessToken),
+      accessToken
     );
-  }, [token]);
+  }, []);
+
+  /* callbacks */
+  const retrieveSpaceTwoUser = useCallback(async (email: string) => {
+    const spaceTwoUser = await getSpaceTwoUserWithEmail(email);
+
+    setUser(spaceTwoUser);
+  }, []);
 
   /* effects */
   useEffect(() => {
@@ -53,13 +65,29 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }
   }, [token]);
 
+  useEffect(() => {
+    const loggedUser = localStorage.getItem("logged_user");
+
+    if (!user && loggedUser) {
+      retrieveSpaceTwoUser(loggedUser);
+    }
+  }, [user]);
+
   /* events */
   const setToken = (newToken: string) => {
     setToken_(newToken);
   };
 
+  const handleLogin = (user: SpaceTwoBaseUser) => {
+    setUser(user);
+    localStorage.setItem("logged_user", user.email);
+  };
+
   const handleLogout = () => {
     setToken_(null);
+    setUser(undefined);
+    localStorage.removeItem("logged_user");
+    navigate(APP_ROUTES.HOME);
   };
 
   /* values */
@@ -68,9 +96,9 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       token,
       setToken,
       user,
-      setUser,
       getUserProfile,
       handleLogout,
+      handleLogin,
     }),
     [token, user]
   );

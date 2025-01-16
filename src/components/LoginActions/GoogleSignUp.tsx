@@ -7,7 +7,7 @@ import { APP_ROUTES } from "../../routing";
 
 const GoogleSignUp: React.FC = () => {
   /* hooks */
-  const { setToken, setUser, getUserProfile } = useAuthContext();
+  const { setToken, handleLogin, getUserProfile } = useAuthContext();
   const { handleCloseModal } = useLoginContext();
   const { getSpaceTwoUserWithEmail } = useSpaceTwoUsers();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const GoogleSignUp: React.FC = () => {
       setToken(token.access_token);
       handleCloseModal();
 
-      const userProfile = await getUserProfile();
+      const userProfile = await getUserProfile(token.access_token);
 
       // check if user exists
       if (!userProfile) {
@@ -31,7 +31,7 @@ const GoogleSignUp: React.FC = () => {
             `${APP_ROUTES.CREATE_ACCOUNT}?email=${userProfile.email}&name=${userProfile.given_name}%20${userProfile.family_name}`
           );
         } else {
-          setUser(spaceTwoUser);
+          handleLogin(spaceTwoUser);
           navigate(`${APP_ROUTES.DASHBOARD}/${spaceTwoUser.handle}`);
         }
       }

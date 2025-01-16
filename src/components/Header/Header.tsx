@@ -27,6 +27,10 @@ const Header: React.FC = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleOpenLogin}
+                sx={{
+                  background: "#000000",
+                  color: "#FFFFFF",
+                }}
               >
                 Login
               </Button>
@@ -36,6 +40,10 @@ const Header: React.FC = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleLogout}
+                sx={{
+                  background: "#000000",
+                  color: "#FFFFFF",
+                }}
               >
                 Logout
               </Button>

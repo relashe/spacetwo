@@ -15,7 +15,7 @@ const Home: React.FC = () => {
     if (!!token && !!user) {
       navigate(`${APP_ROUTES.DASHBOARD}/${user.handle}`);
     }
-  }, []);
+  }, [token, user]);
 
   return (
     <Box className="home-page" sx={homeStyles}>
@@ -24,8 +24,11 @@ const Home: React.FC = () => {
       <Box className="home-page__content">
         <Container>
           <Box className="home-page__hero">
-            <Typography variant="h1">This is the homepage</Typography>
-            <Typography variant="body1">This is the slogan</Typography>
+            <Typography variant="h1">Welcome to SpaceTwo</Typography>
+            <Typography variant="h4" mt={4}>
+              Your space to create, collaborate and show your talent in real
+              time
+            </Typography>
           </Box>
         </Container>
       </Box>

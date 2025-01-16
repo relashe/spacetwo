@@ -6,6 +6,8 @@ interface LoginContextProps {
   handleOpenLogin: () => void;
   handleOpenSignup: () => void;
   handleCloseModal: () => void;
+  showLogin: boolean;
+  showSignUp: boolean;
 }
 
 const LoginContext = createContext<LoginContextProps | null>(null);
@@ -20,9 +22,12 @@ export const LoginProvider: React.FC<PropsWithChildren> = ({ children }) => {
   /* events */
   const handleOpenLogin = () => {
     setShowLogin(true);
+    setShowSignUp(false);
   };
+
   const handleOpenSignup = () => {
     setShowSignUp(true);
+    setShowLogin(false);
   };
 
   const handleCloseModal = () => {
@@ -35,7 +40,13 @@ export const LoginProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <LoginContext.Provider
-      value={{ handleOpenLogin, handleOpenSignup, handleCloseModal }}
+      value={{
+        handleOpenLogin,
+        handleOpenSignup,
+        handleCloseModal,
+        showLogin,
+        showSignUp,
+      }}
     >
       {children}
       <Dialog open={showModal} onClose={handleCloseModal}>
