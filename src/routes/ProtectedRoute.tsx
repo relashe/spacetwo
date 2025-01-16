@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from "react-router";
-import Header from "../components/Header/Header";
 import { useAuthContext, useLoginContext } from "../providers";
 import { APP_ROUTES } from "../routing";
 
@@ -16,12 +15,5 @@ export const ProtectedRoute = () => {
   }
 
   // If authenticated, render the child routes
-  return (
-    <div className="App">
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-    </div>
-  );
+  return <Outlet />;
 };

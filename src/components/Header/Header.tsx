@@ -1,16 +1,27 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { Link } from "react-router";
+import { useAuthContext, useLoginContext } from "../../providers";
 import { APP_ROUTES } from "../../routing";
 import { headerStyles } from "./Header.styles";
-import { useAuthContext, useLoginContext } from "../../providers";
+import { HeaderProps } from "./HeaderProps";
+import classnames from "classnames";
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({ className, inDashboard }) => {
   const { handleOpenLogin, handleOpenSignup } = useLoginContext();
   const { handleLogout } = useAuthContext();
   const { token } = useAuthContext();
 
+  /* values */
+  const classes = classnames(
+    "header",
+    {
+      "header--dashboard": inDashboard,
+    },
+    className
+  );
+
   return (
-    <Box component="header" className="header" sx={headerStyles}>
+    <Box component="header" className={classes} sx={headerStyles}>
       <Container>
         <Box className="header__inner">
           <Typography variant="h2" className="header__title">

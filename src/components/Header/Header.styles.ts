@@ -3,9 +3,7 @@ import { SxProps, Theme } from "@mui/material";
 export const headerStyles: SxProps<Theme> = {
   backgroundColor: "transparent",
   color: "#000000",
-  // height: "75px",
   fontSize: "calc(10px + 2vmin)",
-  boxShadow: "1px 0 0 0 rgba(0, 0, 0, 0.05)",
   width: "100%",
   padding: "25px 0",
   borderBottom: "solid 2px #9fbaf1",
@@ -40,9 +38,19 @@ export const headerStyles: SxProps<Theme> = {
 
   "& .nav": {
     display: "flex",
-    flexDirection: "row nowrap",
+    flexFlow: "row nowrap",
     justifyContent: "space-around",
     gap: "20px",
     padding: "20px 0",
+  },
+
+  "&.header--dashboard": {
+    borderBottom: "none",
+
+    "& .header__inner": {
+      flexFlow: "column nowrap",
+      justifyContent: "flex-start",
+      alignItems: "center",
+    },
   },
 };
