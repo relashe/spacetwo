@@ -1,9 +1,4 @@
-import {
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-} from "react-router";
+import { Route, Routes } from "react-router";
 import { APP_ROUTES } from "../routing";
 import CreateSpaceTwoAccount from "../screens/CreateSpaceTwoAccount/CreateSpaceTwoAccount";
 import Dashboard from "../screens/Dashboard";

@@ -8,7 +8,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     handleOpenLogin();
-  }, []);
+  }, [handleOpenLogin]);
 
   return (
     <div className="App">

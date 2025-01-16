@@ -48,11 +48,14 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   /* callbacks */
-  const retrieveSpaceTwoUser = useCallback(async (email: string) => {
-    const spaceTwoUser = await getSpaceTwoUserWithEmail(email);
+  const retrieveSpaceTwoUser = useCallback(
+    async (email: string) => {
+      const spaceTwoUser = await getSpaceTwoUserWithEmail(email);
 
-    setUser(spaceTwoUser);
-  }, []);
+      setUser(spaceTwoUser);
+    },
+    [getSpaceTwoUserWithEmail]
+  );
 
   /* effects */
   useEffect(() => {
@@ -71,24 +74,24 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     if (!user && loggedUser) {
       retrieveSpaceTwoUser(loggedUser);
     }
-  }, [user]);
+  }, [user, retrieveSpaceTwoUser]);
 
   /* events */
   const setToken = (newToken: string) => {
     setToken_(newToken);
   };
 
-  const handleLogin = (user: SpaceTwoBaseUser) => {
+  const handleLogin = useCallback((user: SpaceTwoBaseUser) => {
     setUser(user);
     localStorage.setItem("logged_user", user.email);
-  };
+  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     setToken_(null);
     setUser(undefined);
     localStorage.removeItem("logged_user");
     navigate(APP_ROUTES.HOME);
-  };
+  }, [navigate]);
 
   /* values */
   const contextValue = useMemo(
@@ -100,7 +103,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       handleLogout,
       handleLogin,
     }),
-    [token, user]
+    [token, user, getUserProfile, handleLogout, handleLogin]
   );
 
   return (

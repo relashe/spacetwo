@@ -15,7 +15,7 @@ const Home: React.FC = () => {
     if (!!token && !!user) {
       navigate(`${APP_ROUTES.DASHBOARD}/${user.handle}`);
     }
-  }, [token, user]);
+  }, [token, user, navigate]);
 
   return (
     <Box className="home-page" sx={homeStyles}>

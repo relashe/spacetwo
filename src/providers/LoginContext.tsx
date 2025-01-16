@@ -1,11 +1,4 @@
-import {
-  Box,
-  CardMedia,
-  Dialog,
-  DialogContent,
-  Modal,
-  Stack,
-} from "@mui/material";
+import { Box, CardMedia, Dialog, DialogContent, Stack } from "@mui/material";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import LoginActions from "../components/LoginActions/LoginActions";
 
